@@ -1,0 +1,28 @@
+{
+	"name": "mitrm/yii2-short-links-module",
+	"version": "dev-master",
+	"description": "Короткие ссылки",
+	"type": "yii2-extension",
+	"keywords": ["short links", "yii2"],
+	"minimum-stability": "dev",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Mitskevich Ruslan",
+			"email": "mitrm.ru@gmail.com",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": ">=5.4.0",
+		"yiisoft/yii2": "*"
+	},
+	"autoload": {
+		"psr-4": {
+			"mitrm\\links\\": ""
+		}
+	},
+	"extra": {
+	  "bootstrap": "mitrm\\links\\Bootstrap"
+	}
+}

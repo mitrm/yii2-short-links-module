@@ -41,13 +41,14 @@ class ShortLinksController extends Controller
         Yii::$app->response->format = Response::FORMAT_JSON;
         $error = $short_link = false;
         $link = Yii::$app->request->post('link');
+        $title = Yii::$app->request->post('title');
 
         $validator = new UrlValidator();
 
         if (!$validator->validate($link, $error)) {
             $error = 'Укажите верную ссылку, пример http://site.ru/link';
         } else {
-            $short_link = 'http://'.$this->module->domain.'/l/'.ShortLinks::saveLink($link);
+            $short_link = 'http://'.$this->module->domain.'/l/'.ShortLinks::saveLink($link, $title);
 
         }
 

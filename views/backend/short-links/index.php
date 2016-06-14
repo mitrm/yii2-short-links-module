@@ -25,8 +25,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             'id',
-            'link:ntext',
-            'token:ntext',
+            'title',
+            'link',
+            'token',
             'count_click',
             //'table',
             // 'field_id',

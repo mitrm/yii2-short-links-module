@@ -13,6 +13,9 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <div class='col-md-6'>
+        <?= $form->field($model, 'title')->textarea(['rows' => 6]) ?>
+    </div>
+    <div class='col-md-6'>
         <?= $form->field($model, 'link')->textarea(['rows' => 6]) ?>
     </div>
 
@@ -35,15 +38,6 @@ use yii\widgets\ActiveForm;
     <div class='col-md-6'>
         <?= $form->field($model, 'user_id')->textInput() ?>
     </div>
-
-    <div class='col-md-6'>
-        <?= $form->field($model, 'created_at')->textInput() ?>
-    </div>
-
-    <div class='col-md-6'>
-        <?= $form->field($model, 'updated_at')->textInput() ?>
-    </div>
-
 
     <?php if(!$model->isNewRecord):?>
         <div class="clearfix"></div>

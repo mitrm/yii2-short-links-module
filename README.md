@@ -27,6 +27,15 @@ In config file:
 
 ## Usage
 
+
+```php
+    'modules' => [
+         'short_link' => [
+             'class' => 'mitrm\links\Module',
+             'domain' => site.ru
+         ],
+     ],
+```
 Модальное окно создания простых коротких ссылок
 ```php
         <?= \mitrm\links\widgets\ShortLinksWidget::widget([

@@ -19,7 +19,7 @@ class ShortLinksSearch extends ShortLinks
     {
         return [
             [['id', 'count_click', 'field_id', 'user_id', 'created_at', 'updated_at'], 'integer'],
-            [['link', 'short', 'table'], 'safe'],
+            [['link', 'short', 'table', 'title'], 'safe'],
         ];
     }
 
@@ -67,6 +67,7 @@ class ShortLinksSearch extends ShortLinks
 
         $query->andFilterWhere(['like', 'link', $this->link])
             ->andFilterWhere(['like', 'short', $this->short])
+            ->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'table', $this->table]);
 
         return $dataProvider;

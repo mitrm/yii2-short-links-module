@@ -17,9 +17,16 @@ use yii\helpers\Html;
  ]); ?>
 
 <form action="<?= Url::toRoute(['/short_link/short-links/new'])?>" method="post" class="js_short_link_form">
-    <div class="col-md-8">
-        <?= Html::input('text', 'link', '' ,['class' => 'form-control', 'placeholder' => 'Ссылка'])?>
+    <div class="row">
+        <div class="col-md-6">
+            <?= Html::input('text', 'title', '' ,['class' => 'form-control', 'placeholder' => 'Название'])?>
+        </div>
+        <div class="col-md-6">
+            <?= Html::input('text', 'link', '' ,['class' => 'form-control', 'placeholder' => 'Ссылка'])?>
+        </div>
     </div>
+    <div class="clearfix" style="margin-top: 15px;"></div>
+    <div class="clearfix" style="margin-top: 15px;"></div>
     <div class="4">
         <?= Html::submitButton('Отправить', ['class' => 'js_short_link_form_submit pull-right btn btn-primary'])?>
     </div>

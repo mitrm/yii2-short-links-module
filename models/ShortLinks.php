@@ -3,11 +3,13 @@
 namespace mitrm\links\models;
 
 use Yii;
+use yii\validators\UrlValidator;
 
 /**
  * This is the model class for table "short_links".
  *
  * @property integer $id
+ * @property string $title
  * @property string $link
  * @property string $token
  * @property integer $count_click
@@ -39,6 +41,7 @@ class ShortLinks extends \yii\db\ActiveRecord
             [['count_click', 'field_id', 'user_id', 'created_at', 'updated_at'], 'integer'],
             [['table'], 'string', 'max' => 250],
             [['token'], 'string', 'max' => 250],
+            [['title'], 'string', 'max' => 250],
             [['token'], 'unique'],
             [['count_click'], 'default', 'value' => 0],
         ];
@@ -51,14 +54,15 @@ class ShortLinks extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'link' => 'Link',
-            'token' => 'token',
-            'count_click' => 'Count Click',
-            'table' => 'Table',
-            'field_id' => 'Field ID',
-            'user_id' => 'User ID',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'link' => 'Ссылка',
+            'token' => 'Token',
+            'title' => 'Анкор',
+            'count_click' => 'Количество кликов',
+            'table' => 'Таблица',
+            'field_id' => 'ID записи',
+            'user_id' => 'Пользователь',
+            'created_at' => 'Создано',
+            'updated_at' => 'Обнолвено',
         ];
     }
 
@@ -93,15 +97,30 @@ class ShortLinks extends \yii\db\ActiveRecord
          }
      }
 
+
+    public static function generationFullLink($link, $title='')
+    {
+        $validator = new UrlValidator();
+
+        if (!$validator->validate($link, $error)) {
+            $error = 'Укажите верную ссылку, пример http://site.ru/link';
+        } else {
+            return 'http://'.Yii::$app->getModule('short_link')->domain.'/l/'.self::saveLink($link, $title);
+        }
+        return false;
+    }
+
     /**
      * @brief Создание короткой ссылки
      * @param $link
+     * @param $title
      * @return string
      */
-    public static function saveLink($link)
+    public static function saveLink($link, $title='')
     {
         $model = new ShortLinks();
         $model->link = $link;
+        $model->title = $title;
         if($model->save()) {
             return $model->token;
         }

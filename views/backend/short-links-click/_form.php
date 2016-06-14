@@ -24,9 +24,8 @@ use yii\widgets\ActiveForm;
     <?php if(!$model->isNewRecord):?>
         <div class="clearfix"></div>
         <div class='col-md-12  margin-top-20'>
-            Дата создания: <?= date('d.m.Y H:i', $model->created_at)?>
+            Дата клика: <?= date('d.m.Y H:i', $model->created_at)?>
             <br>
-            Дата обновления: <?= date('d.m.Y H:i', $model->updated_at)?>
         </div>
     <?php  endif;?>
     <div class="clearfix"></div>

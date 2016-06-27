@@ -66,6 +66,7 @@ use mitrm\links\models\ShortLinksClick;
     $clicks = (new \yii\db\Query())
         ->select(['DATE_FORMAT(FROM_UNIXTIME(`created_at`), \'%d.%m.%Y\') AS `date`, COUNT(*) as `count_click`'])
         ->from(ShortLinksClick::tableName())
+        ->where(['short_links_id' => $model->id])
         ->indexBy('date')
         ->groupBy("date")
         ->orderBy('created_at')

@@ -18,7 +18,8 @@ class ShortLinksClickSearch extends ShortLinksClick
     public function rules()
     {
         return [
-            [['id', 'short_links_id', 'created_at'], 'integer'],
+            [['id', 'short_links_id'], 'integer'],
+            [['created_at'], 'safe'],
         ];
     }
 
@@ -58,8 +59,12 @@ class ShortLinksClickSearch extends ShortLinksClick
         $query->andFilterWhere([
             'id' => $this->id,
             'short_links_id' => $this->short_links_id,
-            'created_at' => $this->created_at,
         ]);
+
+        if (!empty($this->created_at)) {
+            $date = strtotime($this->created_at);
+            $query->andFilterWhere(['between', 'created_at', $date, $date + 3600 * 24]);
+        }
 
         return $dataProvider;
     }

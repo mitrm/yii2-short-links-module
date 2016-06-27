@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <h3 class="page-title"><?= Html::encode($this->title) ?></h3>
 <div class="page-bar">
-    <?         echo \mitrm\metronic\widgets\Breadcrumbs::widget([
+    <?= \yii\widgets\Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]);   
     ?>

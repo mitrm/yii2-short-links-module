@@ -41,8 +41,8 @@ class ShortLinksClick extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'short_links_id' => 'ID ссылки',
-            'created_at' => 'Дата клика',
+            'short_links_id' => 'РЎСЃС‹Р»РєР°',
+            'created_at' => 'Р’СЂРЅРјСЏ РєР»РёРєР°',
         ];
     }
 

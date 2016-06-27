@@ -27,6 +27,7 @@ class ShortLinksController extends Controller
     {
         $link = ShortLinks::findByToken($token);
         if($link) {
+
             return $this->redirect($link);
         }
         throw new NotFoundHttpException('Не найдена короткая ссылка');

@@ -54,7 +54,7 @@ class ShortLinks extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'link' => 'Ссылка',
+            'link' => 'Длинная ссылка',
             'token' => 'Token',
             'title' => 'Анкор',
             'count_click' => 'Количество кликов',
@@ -96,6 +96,16 @@ class ShortLinks extends \yii\db\ActiveRecord
              return false;
          }
      }
+
+    public function beforeDelete()
+    {
+        if (parent::beforeDelete()) {
+            ShortLinksClick::deleteAll(['short_links_id' => $this->id]);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
     public static function generationFullLink($link, $title='')
@@ -153,6 +163,15 @@ class ShortLinks extends \yii\db\ActiveRecord
             }
             $model->count_click += 1;
             $model->save();
+            // Запишем ссылку в куки
+            $cookies = Yii::$app->response->cookies;
+            // добавление новой куки в HTTP-ответ
+            $cookies->add(new \yii\web\Cookie([
+                'name' => 'short_link_id',
+                'value' => $model->id,
+                'expire' => time() + 60*60*24*7,
+            ]));
+
             return $model->link;
         }
         return false;

@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel mitrm\links\models\search\ShortLinksClickSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Short Links Clicks';
+$this->title = 'Клики по коротким ссылкам';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <h3 class="page-title"><?= Html::encode($this->title) ?></h3>
@@ -16,20 +16,37 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Добавить Short Links Click', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'short_links_id',
-            'created_at',
-
+            [
+                'attribute' => 'id',
+                'options' => ['width' => '80px'],
+            ],
+            [
+                'attribute' => 'short_links_id',
+                'options' => ['width' => '150px'],
+                'format' => 'html',
+                'value' => function ($model) {
+                    return $model->shortLinks->link;
+                },
+            ],
+            [
+                'attribute' => 'created_at',
+                'options' => ['width' => '150px'],
+                'value' => function ($model) {
+                    return date('d.m.Y H:i', $model->created_at);
+                },
+                'filter' => \yii\jui\DatePicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'created_at',
+                    'dateFormat' => 'php:d.m.Y',
+                    'options' => [
+                        'class' => 'form-control',
+                    ],
+                ]),
+            ],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{update} {delete}',

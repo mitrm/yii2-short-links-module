@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel mitrm\links\models\search\ShortLinksSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Short Links';
+$this->title = 'Короткие ссылки';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <h3 class="page-title"><?= Html::encode($this->title) ?></h3>
@@ -16,18 +16,30 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Добавить Short Links', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             'id',
             'title',
-            'link',
-            'token',
+            [
+                'attribute' => 'link',
+
+                'options' => ['width' => '150px'],
+                'format' => 'html',
+                'value' => function ($model) {
+                    return substr ($model->link, 0,50) . ' ...';
+                },
+            ],
+            [
+                'attribute' => 'link',
+                'label' => 'Короткая ссылка',
+                'options' => ['width' => '150px'],
+                'format' => 'html',
+                'value' => function ($model) {
+                    return Html::a('http://'.Yii::$app->getModule('short_link')->domain.'/l/'.$model->token, 'http://'.Yii::$app->getModule('short_link')->domain.'/l/'.$model->token);
+                },
+            ],
             'count_click',
             //'table',
             // 'field_id',
